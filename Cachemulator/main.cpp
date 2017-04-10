@@ -1,13 +1,6 @@
 #include <stdio.h>
 #include "cache.h"
 
-
-#define Data_read			0
-#define Data_write			1
-#define Instruction_read	2
-
-
-
 int main()
 {
 
@@ -17,18 +10,25 @@ int main()
 	int type;
 	unsigned long addr;
 
+	int iHitCount = 0;
+	int iMissCount = 0;
+
 	FILE *pTrace;
 	fopen_s(&pTrace, "trace.txt","r");
 
-	for (int i = 0; i < 10; i++) {
-		
-		fscanf_s(pTrace, "%d %x\n", &type, &addr);
+	int i;
 
-		printf("%d %x", type, addr);
-		MyCache.Access(type, addr);
+	for (i = 0; i < 100 ; i++) {
+		
+		if (fscanf_s(pTrace, "%d %x\n", &type, &addr) == EOF) break;
+
+		if (MyCache.Access(type, addr) == HIT)	iHitCount++;
+		else iMissCount++;
 		printf("\n");
 	}
 	fclose(pTrace);
+
+	printf("Total Acc Time :%4d Hit Count : %4d, Miss Count : %4d \n",i, iHitCount, iMissCount);
 	getchar();
 
 	return 0;
