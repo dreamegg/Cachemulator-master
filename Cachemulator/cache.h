@@ -3,9 +3,9 @@ struct DirectedMapLine
 {
 	bool bValid;
 	bool bDirty;
-	long pTag;
-	long pIndex;
-	long cOffest;
+	unsigned long pTag;
+	unsigned long pIndex;
+	unsigned long cOffest;
 };
 
 
@@ -13,8 +13,20 @@ class cache {
 private:
 	int Type;
 	int AssociateNumber;
+
+	int iMainMemorySize;
+	int iCacheSize;
+	int iBlockSize;
+	int iLineNumbers;
+
+	int iWriteType;
+
+	int iTagLength;
+	int iIndexLength;
+	int iOffsetLength;
+
 	
-	DirectedMapLine pMap[32];
+	DirectedMapLine* pMap;
 
 public:
 	int create(int size);

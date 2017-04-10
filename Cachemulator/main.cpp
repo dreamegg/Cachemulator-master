@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "cache.h"
 
-#define MACHINE_BIT			64
 
 #define Data_read			0
 #define Data_write			1
